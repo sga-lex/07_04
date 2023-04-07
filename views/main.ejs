@@ -1,0 +1,44 @@
+<%- include("partials/header"); -%>
+<h1>Welcome back, <%= currentUser %>!</h1>
+<% if (adminUser) { %>
+  <h2>Create a New Project:</h2>
+  <form class="new-project" action="/main" method="post">
+    <div class="form-group">
+      <label>Title:</label>
+      <input class="form-control" type="text" name="postTitle">
+      <label>Post:</label>
+      <textarea class="form-control" name="postBody" rows="3" cols="30"></textarea>
+    </div>
+    <button class="btn btn-primary" type="submit" name="button">Publish</button>
+  </form>
+<% } else { %>
+  <form disabled>
+    </form>
+<% } %>
+
+
+<%  posts.forEach(function(post){ %>
+    <h3><%=post.title%></h3>
+    <p>
+    <%=post.content.substring(0, 100) + " ..."%>
+    <a href="/posts/<%=post._id%>">Read More</a>
+    </p>
+    <% }) %>
+
+    <div class="box" id="heading">
+    </div>
+    <div class="box">
+      <link rel="stylesheet" href="/css/stylesLeaderboard.css">
+        <form action="/delete" method="post">
+          <div class="item">
+            <input type="checkbox" name="checkbox" onchange="this.form.submit()">
+          </div>
+        </form>
+        <form class="item" action="/" method="post">
+          <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
+          <button type="submit" name="list">+</button>
+        </form>
+    </div>
+
+
+<%- include("partials/footer"); -%>
